@@ -1,6 +1,6 @@
 import type { UserNameEdits } from '@api/usersService'
 import { USER_NAME_EDITS_STORAGE_KEY } from './constants'
-import type { LoadUserNameEdits, RemoveUserNameEdit, SaveUserNameEdit } from './types'
+import type { LoadUserNameEdits, SaveUserNameEdit } from './types'
 
 export const loadUserNameEdits: LoadUserNameEdits = ({ storage }) => {
   try {
@@ -27,17 +27,6 @@ export const saveUserNameEdit: SaveUserNameEdit = ({ storage, userId, name }) =>
     ...loadUserNameEdits({ storage }),
     [String(userId)]: name,
   }
-
-  storage.setItem(USER_NAME_EDITS_STORAGE_KEY, JSON.stringify(edits))
-  return edits
-}
-
-export const removeUserNameEdit: RemoveUserNameEdit = ({ storage, userId }) => {
-  const currentEdits = loadUserNameEdits({ storage })
-  const userIdToRemove = String(userId)
-  const edits = Object.fromEntries(
-    Object.entries(currentEdits).filter(([userId]) => userId !== userIdToRemove),
-  )
 
   storage.setItem(USER_NAME_EDITS_STORAGE_KEY, JSON.stringify(edits))
   return edits

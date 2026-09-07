@@ -16,7 +16,7 @@ export const RowActions: FC<RowActionsProps> = ({ userId, userName, className })
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className={`h-8 w-8 p-0${className ? ` ${className}` : ''}`}
+          className={`h-10 w-10 p-0${className ? ` ${className}` : ''}`}
           aria-label={`Actions for ${userName}`}
         >
           <MoreVertical className="h-4 w-4" />

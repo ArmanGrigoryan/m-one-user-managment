@@ -19,8 +19,6 @@ export const UserNameForm: FC<UserNameFormProps> = ({
     currentName,
     onSave,
   })
-  const hasVisibleError =
-    form.name.length > 0 && form.nameError !== null
 
   const dismissToast = useCallback(() => {
     form.changeName(form.name)
@@ -40,25 +38,17 @@ export const UserNameForm: FC<UserNameFormProps> = ({
         <Input
           id="user-name"
           value={form.name}
-          invalid={hasVisibleError}
           autoComplete="name"
           aria-label="Name"
           onChange={(event) => {
             form.changeName(event.target.value)
           }}
         />
-        {hasVisibleError && (
-          <span className="mt-1 block text-xs text-muted">
-            {form.nameError}
-          </span>
-        )}
       </label>
       <div className="mt-4">
         <Button
           type="submit"
-          disabled={
-            form.nameError !== null || form.trimmedName === currentName
-          }
+          disabled={form.trimmedName === currentName}
         >
           <Save className="h-4 w-4" />
           Save name

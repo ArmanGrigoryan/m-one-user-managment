@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import type { UserNameEdits } from '@api/usersService'
-import { loadUserNameEdits, removeUserNameEdit, saveUserNameEdit } from '@utils/storage'
+import { loadUserNameEdits, saveUserNameEdit } from '@utils/storage'
 import type { SaveNameArgs, UseUserEdits } from './types'
 
 const STORAGE_ERROR_MESSAGE =
@@ -26,18 +26,6 @@ export const useUserEdits: UseUserEdits = () => {
     }
   }, [])
 
-  const removeName = useCallback(({ userId }: { readonly userId: number }) => {
-    try {
-      const savedEdits = removeUserNameEdit({ storage: localStorage, userId })
-      setEdits(savedEdits)
-      setStorageError(null)
-      return true
-    } catch {
-      setStorageError(STORAGE_ERROR_MESSAGE)
-      return false
-    }
-  }, [])
-
   const clearStorageError = useCallback(() => {
     setStorageError(null)
   }, [])
@@ -46,7 +34,6 @@ export const useUserEdits: UseUserEdits = () => {
     edits,
     storageError,
     saveName,
-    removeName,
     clearStorageError,
   }
 }

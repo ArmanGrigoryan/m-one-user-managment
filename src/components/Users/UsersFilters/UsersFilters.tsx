@@ -2,7 +2,6 @@ import type { FC, ChangeEvent } from 'react'
 import { Search } from 'lucide-react'
 import { FilterSelect } from '@components/Users/FilterSelect'
 import { Input } from '@components/Input'
-import { getPeopleLabel } from '@utils/getPeopleLabel'
 import { cn } from '@utils/cn'
 import type { UsersFiltersProps } from './types'
 
@@ -10,7 +9,6 @@ export const UsersFilters: FC<UsersFiltersProps> = ({
   search,
   selectedCities,
   cities,
-  resultCount,
   onSearchChange,
   onCitiesChange,
   className,
@@ -20,7 +18,7 @@ export const UsersFilters: FC<UsersFiltersProps> = ({
   }
 
   return (
-    <div className={cn('flex flex-col gap-4 border-b border-border p-4 sm:p-5', className)}>
+    <div className={cn('border-b border-border p-4 sm:p-5', className)}>
       <div className="flex flex-wrap gap-2">
         <label className="relative w-full sm:max-w-80">
           <span className="sr-only">Search by name or email</span>
@@ -40,9 +38,6 @@ export const UsersFilters: FC<UsersFiltersProps> = ({
           onChange={onCitiesChange}
         />
       </div>
-      <p className="text-sm text-muted" aria-live="polite">
-        {resultCount} {getPeopleLabel({ resultCount })} found
-      </p>
     </div>
   )
 }

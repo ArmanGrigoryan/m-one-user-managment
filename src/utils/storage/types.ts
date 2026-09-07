@@ -14,9 +14,3 @@ export interface SaveUserNameEditArgs {
 export type SaveUserNameEditResult = UserNameEdits
 export type SaveUserNameEdit = (args: SaveUserNameEditArgs) => SaveUserNameEditResult
 
-export interface RemoveUserNameEditArgs {
-  readonly storage: Storage
-  readonly userId: number
-}
-export type RemoveUserNameEditResult = UserNameEdits
-export type RemoveUserNameEdit = (args: RemoveUserNameEditArgs) => RemoveUserNameEditResult

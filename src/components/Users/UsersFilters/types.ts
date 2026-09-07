@@ -5,7 +5,6 @@ export interface UsersFiltersProps {
   readonly search: string
   readonly selectedCities: readonly string[]
   readonly cities: readonly string[]
-  readonly resultCount: number
   readonly onSearchChange: UsersFiltersOnSearchChange
   readonly onCitiesChange: UsersFiltersOnCitiesChange
   readonly className?: string

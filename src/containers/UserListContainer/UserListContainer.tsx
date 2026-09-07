@@ -1,35 +1,29 @@
 import type { FC } from 'react'
-import { useEffect } from 'react'
-import { UsersDirectoryPanel } from '@components/Users/UsersDirectoryPanel'
+import { UsersDirectoryPanel as UsersList } from '@components/Users/UsersDirectoryPanel'
 import { UsersErrorState } from '@components/Users/UsersErrorState'
 import { UsersHeader } from '@components/Users/UsersHeader'
 import { UsersLoadingState } from '@components/Users/UsersLoadingState'
-import { useLayoutContext } from '@hooks/useLayoutContext'
+import { useDocumentTitle } from '@hooks/useDocumentTitle'
+import { useUserEdits } from '@hooks/useUserEdits'
 import { EMPTY_USERS, useUserListState } from '@hooks/useUserListState'
+import { useUsers } from '@hooks/useUsers'
 import type { UserListContainerProps } from './types'
 
-const UserListContainer: FC<UserListContainerProps> = () => {
-  const { usersQuery, edits } = useLayoutContext()
-  const serverUsers = usersQuery.status === 'success' ? usersQuery.users : EMPTY_USERS
-  const directory = useUserListState({ edits, users: serverUsers })
+const PAGE_TITLE = 'People · M-One'
 
-  useEffect(() => {
-    document.title = 'People · M-One'
-  }, [])
+const UserListContainer: FC<UserListContainerProps> = () => {
+  useDocumentTitle(PAGE_TITLE)
+  const fetchedUsers = useUsers()
+  const { edits: localNameEdits } = useUserEdits()
+  const serverUsers = fetchedUsers.status === 'success' ? fetchedUsers.users : EMPTY_USERS
+  const directory = useUserListState({ edits: localNameEdits, users: serverUsers })
 
   return (
     <>
       <UsersHeader />
-      {usersQuery.status === 'loading' && <UsersLoadingState />}
-      {usersQuery.status === 'error' && (
-        <UsersErrorState
-          message={usersQuery.message}
-          onRetry={usersQuery.retry}
-        />
-      )}
-      {usersQuery.status === 'success' && (
-        <UsersDirectoryPanel directory={directory} />
-      )}
+      {fetchedUsers.status === 'loading' && <UsersLoadingState />}
+      {fetchedUsers.status === 'error' && <UsersErrorState message={fetchedUsers.message} onRetry={fetchedUsers.retry} />}
+      {fetchedUsers.status === 'success' && <UsersList directory={directory} />}
     </>
   )
 }

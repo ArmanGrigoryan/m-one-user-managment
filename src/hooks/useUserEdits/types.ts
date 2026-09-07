@@ -6,13 +6,11 @@ export interface SaveNameArgs {
 }
 
 export type UserEditsOnSave = (args: SaveNameArgs) => boolean
-export type UserEditsOnRemove = (args: { readonly userId: number }) => boolean
 
 export interface UseUserEditsResult {
   readonly edits: UserNameEdits
   readonly storageError: string | null
   readonly saveName: UserEditsOnSave
-  readonly removeName: UserEditsOnRemove
   readonly clearStorageError: () => void
 }
 

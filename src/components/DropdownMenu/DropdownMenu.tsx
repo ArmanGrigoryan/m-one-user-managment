@@ -24,6 +24,7 @@ export const DropdownMenuContent: FC<DropdownMenuContentProps> = ({
           className,
         )}
         sideOffset={sideOffset}
+        collisionPadding={16}
         {...props}
       />
     </DropdownPrimitive.Portal>

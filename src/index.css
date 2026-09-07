@@ -13,6 +13,7 @@
   --color-accent-foreground: #eef2ff;
   --color-danger: #b91c1c;
   --color-success: #166534;
+  --color-selection: #c7d2fe;
 }
 
 html,
@@ -31,7 +32,7 @@ body {
 
 ::selection {
   color: var(--color-foreground);
-  background: #c7d2fe;
+  background: var(--color-selection);
 }
 
 @keyframes shimmer {

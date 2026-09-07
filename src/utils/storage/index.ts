@@ -1,4 +1,4 @@
-export { loadUserNameEdits, saveUserNameEdit, removeUserNameEdit } from './storage'
+export { loadUserNameEdits, saveUserNameEdit } from './storage'
 export type {
   LoadUserNameEditsArgs,
   LoadUserNameEditsResult,
@@ -6,7 +6,4 @@ export type {
   SaveUserNameEditArgs,
   SaveUserNameEditResult,
   SaveUserNameEdit,
-  RemoveUserNameEditArgs,
-  RemoveUserNameEditResult,
-  RemoveUserNameEdit,
 } from './types'

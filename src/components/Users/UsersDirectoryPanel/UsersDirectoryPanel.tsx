@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { UsersFilters } from '@components/Users/UsersFilters'
 import { UsersPagination } from '@components/Users/UsersPagination'
 import { UsersTable } from '@components/Users/UsersTable'
+import { USERS_PER_PAGE } from '@hooks/useUserListState/constants'
 import { cn } from '@utils/cn'
 import type { UsersDirectoryPanelProps } from './types'
 
@@ -15,7 +16,6 @@ export const UsersDirectoryPanel: FC<UsersDirectoryPanelProps> = ({
         search={directory.query.search}
         selectedCities={directory.query.cities}
         cities={directory.cities}
-        resultCount={directory.filteredUsers.length}
         onSearchChange={(search) => {
           directory.setQueryValues({
             values: { q: search, page: '1' },
@@ -47,6 +47,8 @@ export const UsersDirectoryPanel: FC<UsersDirectoryPanelProps> = ({
       <UsersPagination
         page={directory.currentPage}
         pageCount={directory.pageCount}
+        totalCount={directory.filteredUsers.length}
+        pageSize={USERS_PER_PAGE}
         onPageChange={(page) => {
           directory.setQueryValues({
             values: { page: String(page) },

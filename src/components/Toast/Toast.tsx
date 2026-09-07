@@ -7,17 +7,32 @@ import type { ToastProps } from './types'
 const TOAST_DURATION_MS = 4000
 
 export const Toast: FC<ToastProps> = ({ message, tone = 'error', onClose, className }) => {
+  const [visible, setVisible] = useState(false)
   const [visibleMessage, setVisibleMessage] = useState(message)
 
   useEffect(() => {
-    setVisibleMessage(message)
-    if (message === null) {
-      return
+    if (message !== null) {
+      setVisibleMessage(message)
+      requestAnimationFrame(() => setVisible(true))
+
+      const timeoutId = window.setTimeout(() => setVisible(false), TOAST_DURATION_MS)
+      return () => window.clearTimeout(timeoutId)
     }
 
-    const timeoutId = window.setTimeout(onClose, TOAST_DURATION_MS)
-    return () => window.clearTimeout(timeoutId)
-  }, [message, onClose])
+    setVisible(false)
+  }, [message])
+
+  useEffect(() => {
+    if (!visible && visibleMessage !== null && message === null) {
+      const timeoutId = window.setTimeout(() => setVisibleMessage(null), 300)
+      return () => window.clearTimeout(timeoutId)
+    }
+  }, [visible, visibleMessage, message])
+
+  const handleClose = () => {
+    setVisible(false)
+    window.setTimeout(onClose, 300)
+  }
 
   if (visibleMessage === null) {
     return null
@@ -26,7 +41,13 @@ export const Toast: FC<ToastProps> = ({ message, tone = 'error', onClose, classN
   const Icon = tone === 'success' ? CheckCircle : AlertCircle
 
   return (
-    <div className={cn('fixed right-4 bottom-4 z-50 w-full max-w-sm', className)}>
+    <div
+      className={cn(
+        'fixed right-4 bottom-4 left-4 z-50 transition-all duration-300 ease-out sm:left-auto sm:w-full sm:max-w-sm',
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+        className,
+      )}
+    >
       <div
         role="alert"
         className={cn(
@@ -44,7 +65,7 @@ export const Toast: FC<ToastProps> = ({ message, tone = 'error', onClose, classN
         <button
           type="button"
           aria-label="Dismiss"
-          onClick={onClose}
+          onClick={handleClose}
           className="shrink-0 rounded p-0.5 hover:bg-slate-100"
         >
           <X className="h-4 w-4 text-slate-400" />

@@ -22,7 +22,7 @@ export const UsersTable: FC<UsersTableProps> = ({
   return (
     <div className={className}>
       <div className="hidden overflow-x-auto md:block">
-        <Table className="min-w-[700px]" aria-label="Users">
+        <Table className="min-w-full" aria-label="Users">
           <UsersTableHeader
             sortDirection={sortDirection}
             sortField={sortField}
