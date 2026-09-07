@@ -11,7 +11,7 @@ const App = () => {
       <ErrorBoundary>
         <AppRoutes />
       </ErrorBoundary>
-      <Toaster position="bottom-right" richColors />
+      <Toaster position="top-right" richColors />
     </QueryClientProvider>
   )
 }

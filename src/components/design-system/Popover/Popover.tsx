@@ -16,7 +16,7 @@ export const PopoverContent: FC<PopoverContentProps> = ({
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         className={cn(
-          'z-50 w-[calc(100vw-2rem)] rounded-lg border border-border bg-card shadow-lg outline-none sm:w-72',
+          'z-50 max-h-(--radix-popover-content-available-height) w-[calc(100vw-2rem)] rounded-lg border border-border bg-card shadow-lg outline-none sm:w-72',
           className,
         )}
         sideOffset={sideOffset}

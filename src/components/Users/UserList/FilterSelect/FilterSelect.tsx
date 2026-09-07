@@ -103,8 +103,8 @@ export const FilterSelect: FC<FilterSelectProps> = ({
           )} />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="flex max-h-96 flex-col">
-        <div className="border-b border-border p-2">
+      <PopoverContent className="flex flex-col">
+        <div className="shrink-0 border-b border-border p-2">
           <label className="relative block">
             <Search className="pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted" />
             <Input
@@ -113,7 +113,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
               onChange={(e) => setSearch(e.target.value)}
               placeholder={`Search ${label.toLowerCase()}...`}
               aria-label={`Search ${label.toLowerCase()}`}
-              className="h-8 pl-8 text-sm"
+              className="h-8 pl-8 text-base sm:text-sm"
             />
           </label>
         </div>
@@ -122,12 +122,12 @@ export const FilterSelect: FC<FilterSelectProps> = ({
           role="checkbox"
           aria-checked={allVisibleSelected}
           onClick={toggleAll}
-          className="flex items-center gap-3 border-b border-border px-3 py-2.5 text-sm font-medium hover:bg-slate-50"
+          className="flex shrink-0 items-center gap-3 border-b border-border px-3 py-2.5 text-sm font-medium hover:bg-slate-50"
         >
           <CheckboxIcon checked={allVisibleSelected} />
           Select All
         </button>
-        <div className="flex-1 overflow-y-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           {filteredOptions.map((option) => (
             <button
               key={option}
@@ -147,7 +147,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
             </p>
           )}
         </div>
-        <div className="flex items-center gap-2 border-t border-border p-2">
+        <div className="flex shrink-0 items-center gap-2 border-t border-border p-2">
           <button
             type="button"
             onClick={apply}
