@@ -1,3 +1,7 @@
+export interface CheckboxIconProps {
+  readonly checked: boolean
+}
+
 export interface FilterSelectProps {
   readonly label: string
   readonly selected: readonly string[]

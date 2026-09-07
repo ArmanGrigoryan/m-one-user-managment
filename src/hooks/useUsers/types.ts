@@ -11,5 +11,3 @@ export type UsersQuery = UsersState & {
 
 export type UseUsersResult = UsersQuery
 export type UseUsers = () => UseUsersResult
-
-export const USERS_QUERY_KEY = ['users'] as const

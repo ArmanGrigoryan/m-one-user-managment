@@ -14,7 +14,7 @@ import type { RowActionsProps } from './types'
 
 export const RowActions: FC<RowActionsProps> = memo(({ userId, userName, className }) => {
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"

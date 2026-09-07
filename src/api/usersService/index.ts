@@ -1,5 +1,5 @@
 export { fetchUsers } from './usersService'
-export { USERS_API_URL } from './constants'
+export { USERS_API_URL, EMPTY_USERS } from './constants'
 export type {
   User,
   UserAddress,

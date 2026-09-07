@@ -1,4 +1,4 @@
-import type { FormEvent } from 'react'
+import type { SubmitEventHandler } from 'react'
 import type { UserEditsOnSave } from '@hooks/useUserEdits'
 
 export interface UseUserNameFormArgs {
@@ -10,8 +10,8 @@ export interface UseUserNameFormArgs {
 export interface UseUserNameFormResult {
   readonly name: string
   readonly trimmedName: string
-  readonly isPending: boolean
-  readonly submit: (event: FormEvent<HTMLFormElement>) => void
+  readonly canSave: boolean
+  readonly submit: SubmitEventHandler<HTMLFormElement>
   readonly changeName: (nextName: string) => void
 }
 

@@ -1,19 +1,22 @@
 import type { FC } from 'react'
 import { ArrowLeft } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@components/design-system/Button'
 import { cn } from '@utils/cn'
+import { INITIAL_LOCATION_KEY } from './constants'
 import type { UserBackButtonProps } from './types'
 
 export const UserBackButton: FC<UserBackButtonProps> = ({ className }) => {
   const navigate = useNavigate()
+  const { key } = useLocation()
 
   const handleBack = () => {
-    if (window.history.length > 1) {
-      navigate(-1)
-    } else {
+    if (key === INITIAL_LOCATION_KEY) {
       navigate('/')
+      return
     }
+
+    navigate(-1)
   }
 
   return (

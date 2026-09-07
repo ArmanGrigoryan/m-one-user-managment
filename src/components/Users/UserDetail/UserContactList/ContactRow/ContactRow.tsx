@@ -1,10 +1,5 @@
-import type { FC, ReactNode } from 'react'
-
-export interface ContactRowProps {
-  readonly icon: ReactNode
-  readonly label: string
-  readonly value: ReactNode
-}
+import type { FC } from 'react'
+import type { ContactRowProps } from './types'
 
 export const ContactRow: FC<ContactRowProps> = ({ icon, label, value }) => {
   return (

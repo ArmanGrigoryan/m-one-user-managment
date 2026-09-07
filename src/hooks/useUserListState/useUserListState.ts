@@ -1,13 +1,24 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { createUserList, getCities, mergeUserNameEdits } from '@utils/createUserList'
 import { parseUserQuery, updateUserQuery } from '@utils/userQuery'
 import { USERS_PER_PAGE } from './constants'
-import type { UseUserListState } from './types'
+import type { SetQueryValuesArgs, UseUserListState } from './types'
 
 export const useUserListState: UseUserListState = ({ edits, users }) => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const query = parseUserQuery({ searchParams })
+
+  const setQueryValues = useCallback(
+    ({ values, replace }: SetQueryValuesArgs) => {
+      setSearchParams(updateUserQuery({ current: searchParams, values }), {
+        replace,
+      })
+    },
+    [searchParams, setSearchParams],
+  )
+
+  const query = useMemo(() => parseUserQuery({ searchParams }), [searchParams])
+
   const mergedUsers = useMemo(
     () => mergeUserNameEdits({ users, edits }),
     [users, edits],
@@ -30,24 +41,13 @@ export const useUserListState: UseUserListState = ({ edits, users }) => {
       query.sortBy,
     ],
   )
+
   const pageCount = Math.max(1, Math.ceil(filteredUsers.length / USERS_PER_PAGE))
   const currentPage = Math.min(query.page, pageCount)
   const pageUsers = filteredUsers.slice(
     (currentPage - 1) * USERS_PER_PAGE,
     currentPage * USERS_PER_PAGE,
   )
-
-  const setQueryValues = ({
-    values,
-    replace,
-  }: {
-    readonly values: Readonly<Record<string, string>>
-    readonly replace: boolean
-  }) => {
-    setSearchParams(updateUserQuery({ current: searchParams, values }), {
-      replace,
-    })
-  }
 
   return {
     query,

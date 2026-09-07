@@ -18,7 +18,9 @@ export interface UseUserListStateResult {
   readonly currentPage: number
   readonly pageCount: number
   readonly pageUsers: User[]
-  readonly setQueryValues: (args: SetQueryValuesArgs) => void
+  readonly setQueryValues: SetQueryValues
 }
+
+export type SetQueryValues = (args: SetQueryValuesArgs) => void
 
 export type UseUserListState = (args: UseUserListStateArgs) => UseUserListStateResult

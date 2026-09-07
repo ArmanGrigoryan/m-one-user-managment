@@ -1,25 +1,26 @@
-import { useCallback, useState } from 'react'
-import type { UserNameEdits } from '@api/usersService'
+import { useCallback, useSyncExternalStore } from 'react'
 import { toast } from 'sonner'
-import { loadUserNameEdits, saveUserNameEdit } from '@utils/storage'
+import {
+  getUserNameEditsSnapshot,
+  subscribeToUserNameEdits,
+  writeUserNameEdit,
+} from '@utils/userNameEditsStore'
 import type { SaveNameArgs, UseUserEdits } from './types'
 
 export const useUserEdits: UseUserEdits = () => {
-  const [edits, setEdits] = useState<UserNameEdits>(() => loadUserNameEdits({ storage: localStorage }))
+  const edits = useSyncExternalStore(
+    subscribeToUserNameEdits,
+    getUserNameEditsSnapshot,
+  )
 
   const saveName = useCallback(({ userId, name }: SaveNameArgs) => {
-    try {
-      const savedEdits = saveUserNameEdit({
-        storage: localStorage,
-        userId,
-        name,
-      })
-      setEdits(savedEdits)
-      return true
-    } catch {
+    const isSaved = writeUserNameEdit({ userId, name })
+
+    if (!isSaved) {
       toast.error('Your change could not be saved in this browser. Check storage permissions and try again.')
-      return false
     }
+
+    return isSaved
   }, [])
 
   return {

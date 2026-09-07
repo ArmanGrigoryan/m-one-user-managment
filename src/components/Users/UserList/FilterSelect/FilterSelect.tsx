@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Input } from '@components/design-system/Input'
 import { Popover, PopoverContent, PopoverTrigger } from '@components/design-system/Popover'
 import { cn } from '@utils/cn'
-import type { FilterSelectProps } from './types'
+import type { CheckboxIconProps, FilterSelectProps } from './types'
 
 export const FilterSelect: FC<FilterSelectProps> = ({
   label,
@@ -119,10 +119,12 @@ export const FilterSelect: FC<FilterSelectProps> = ({
         </div>
         <button
           type="button"
+          role="checkbox"
+          aria-checked={allVisibleSelected}
           onClick={toggleAll}
           className="flex items-center gap-3 border-b border-border px-3 py-2.5 text-sm font-medium hover:bg-slate-50"
         >
-          <Checkbox checked={allVisibleSelected} />
+          <CheckboxIcon checked={allVisibleSelected} />
           Select All
         </button>
         <div className="flex-1 overflow-y-auto">
@@ -130,10 +132,12 @@ export const FilterSelect: FC<FilterSelectProps> = ({
             <button
               key={option}
               type="button"
+              role="checkbox"
+              aria-checked={draftSet.has(option)}
               onClick={() => toggleOption(option)}
               className="flex w-full items-center gap-3 px-3 py-2.5 text-sm hover:bg-slate-50"
             >
-              <Checkbox checked={draftSet.has(option)} />
+              <CheckboxIcon checked={draftSet.has(option)} />
               {option}
             </button>
           ))}
@@ -164,11 +168,10 @@ export const FilterSelect: FC<FilterSelectProps> = ({
   )
 }
 
-const Checkbox: FC<{ readonly checked: boolean }> = ({ checked }) => {
+const CheckboxIcon: FC<CheckboxIconProps> = ({ checked }) => {
   return (
     <span
-      role="checkbox"
-      aria-checked={checked}
+      aria-hidden="true"
       className={cn(
         'flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded border',
         checked

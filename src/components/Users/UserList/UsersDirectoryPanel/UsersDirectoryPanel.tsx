@@ -2,7 +2,7 @@ import { useCallback, type FC } from 'react'
 import { UsersFilters } from '@components/Users/UserList/UsersFilters'
 import { UsersPagination } from '@components/Users/UserList/UsersPagination'
 import { UsersTable } from '@components/Users/UserList/UsersTable'
-import { USERS_PER_PAGE } from '@hooks/useUserListState/constants'
+import { USERS_PER_PAGE } from '@hooks/useUserListState'
 import { cn } from '@utils/cn'
 import type { UsersDirectoryPanelProps } from './types'
 
