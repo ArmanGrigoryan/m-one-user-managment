@@ -9,12 +9,18 @@ export const useUserNameForm: UseUserNameForm = ({
   onSave,
 }) => {
   const [name, setName] = useState(currentName)
+  const [isPending, setIsPending] = useState(false)
   const trimmedName = name.trim()
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (onSave({ userId, name: trimmedName })) {
-      toast.success('Name saved locally.')
+    setIsPending(true)
+    try {
+      if (onSave({ userId, name: trimmedName })) {
+        toast.success('Name saved locally.')
+      }
+    } finally {
+      setIsPending(false)
     }
   }
 
@@ -25,6 +31,7 @@ export const useUserNameForm: UseUserNameForm = ({
   return {
     name,
     trimmedName,
+    isPending,
     submit,
     changeName,
   }

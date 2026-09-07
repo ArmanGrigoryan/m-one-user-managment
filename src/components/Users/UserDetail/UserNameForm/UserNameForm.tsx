@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Save } from 'lucide-react'
+import { Loader2, Save } from 'lucide-react'
 import { Button } from '@components/design-system/Button'
 import { Input } from '@components/design-system/Input'
 import { useUserNameForm } from '@hooks/useUserNameForm'
@@ -18,6 +18,11 @@ export const UserNameForm: FC<UserNameFormProps> = ({
     onSave,
   })
 
+  const isUnchanged = form.trimmedName === currentName
+  const isEmpty = form.trimmedName.length === 0
+  const isDisabled = isUnchanged || isEmpty || form.isPending
+  const Icon = form.isPending ? Loader2 : Save
+
   return (
     <form
       onSubmit={form.submit}
@@ -33,19 +38,15 @@ export const UserNameForm: FC<UserNameFormProps> = ({
           id="user-name"
           value={form.name}
           autoComplete="name"
-          aria-label="Name"
           onChange={(event) => {
             form.changeName(event.target.value)
           }}
         />
       </label>
       <div className="mt-4">
-        <Button
-          type="submit"
-          disabled={form.trimmedName === currentName}
-        >
-          <Save className="h-4 w-4" />
-          Save name
+        <Button type="submit" disabled={isDisabled}>
+          <Icon className={cn('h-4 w-4', form.isPending && 'animate-spin')} />
+          {form.isPending ? 'Saving...' : 'Save name'}
         </Button>
       </div>
     </form>

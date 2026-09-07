@@ -112,6 +112,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={`Search ${label.toLowerCase()}...`}
+              aria-label={`Search ${label.toLowerCase()}`}
               className="h-8 pl-8 text-sm"
             />
           </label>
@@ -166,6 +167,8 @@ export const FilterSelect: FC<FilterSelectProps> = ({
 const Checkbox: FC<{ readonly checked: boolean }> = ({ checked }) => {
   return (
     <span
+      role="checkbox"
+      aria-checked={checked}
       className={cn(
         'flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded border',
         checked

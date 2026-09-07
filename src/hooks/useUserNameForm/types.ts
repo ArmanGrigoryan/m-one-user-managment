@@ -10,6 +10,7 @@ export interface UseUserNameFormArgs {
 export interface UseUserNameFormResult {
   readonly name: string
   readonly trimmedName: string
+  readonly isPending: boolean
   readonly submit: (event: FormEvent<HTMLFormElement>) => void
   readonly changeName: (nextName: string) => void
 }
