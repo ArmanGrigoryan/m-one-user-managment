@@ -19,7 +19,7 @@ export const UsersPagination: FC<UsersPaginationProps> = ({
   const rangeEnd = Math.min(page * pageSize, totalCount)
 
   return (
-    <div className={cn('flex flex-col items-center gap-3 border-t border-border px-4 py-3 sm:flex-row sm:justify-between', className)}>
+    <nav aria-label="Pagination" className={cn('flex flex-col items-center gap-3 border-t border-border px-4 py-3 sm:flex-row sm:justify-between', className)}>
       <p className="text-sm text-muted">
         Showing {rangeStart}–{rangeEnd} of {totalCount}
       </p>
@@ -42,6 +42,6 @@ export const UsersPagination: FC<UsersPaginationProps> = ({
           Next
         </Button>
       </div>
-    </div>
+    </nav>
   )
 }

@@ -11,8 +11,8 @@ export const UsersErrorState: FC<UsersErrorStateProps> = ({ message, onRetry, is
   return (
     <div className={cn('rounded-2xl border border-border bg-card px-6 py-12 text-center', className)}>
       <div className="mx-auto max-w-md space-y-4">
-        <Alert>{message}</Alert>
         <h2 className="text-2xl font-semibold">We couldn't open the directory</h2>
+        <Alert>{message}</Alert>
         <p className="text-muted">
           Check your connection, then try the request again.
         </p>

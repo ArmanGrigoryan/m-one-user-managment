@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react'
+
 export interface AlertProps {
-  readonly children: string
+  readonly children: ReactNode
   readonly tone?: 'error' | 'success'
   readonly className?: string
 }

@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react'
 
-interface ContactRowProps {
+export interface ContactRowProps {
   readonly icon: ReactNode
   readonly label: string
   readonly value: ReactNode

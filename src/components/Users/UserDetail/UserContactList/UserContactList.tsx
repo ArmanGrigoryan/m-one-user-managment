@@ -28,7 +28,7 @@ export const UserContactList: FC<UserContactListProps> = ({ user, className }) =
           icon={<Globe className="h-4 w-4" />}
           label="Website"
           value={
-            <a href={`https://${user.website}`} target="_blank" rel="noreferrer">
+            <a href={`https://${user.website}`} target="_blank" rel="noreferrer" aria-label={`${user.website} (opens in new tab)`}>
               {user.website}
             </a>
           }

@@ -13,11 +13,7 @@ export const UsersTableRow: FC<UsersTableRowProps> = memo(({ user, className }) 
         <div className="flex items-center gap-3">
           <Avatar name={user.name} initials={getInitials({ name: user.name })} />
           <div className="min-w-0">
-            <span
-              aria-label={`User ${user.name}`}
-              title={user.name}
-              className="block truncate font-semibold text-foreground"
-            >
+            <span className="block truncate font-semibold text-foreground">
               {user.name}
             </span>
             <p className="truncate text-xs text-muted">@{user.username}</p>

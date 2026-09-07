@@ -15,7 +15,7 @@ export const UsersTable: FC<UsersTableProps> = ({
   className,
 }) => {
   if (users.length === 0) {
-    return <UsersEmptyState hasActiveFilters={hasActiveFilters} />
+    return <UsersEmptyState hasActiveFilters={hasActiveFilters} className={className} />
   }
 
   return (
