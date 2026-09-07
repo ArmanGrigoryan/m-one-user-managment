@@ -7,19 +7,20 @@ import { UserNotFound } from '@components/Users/UserNotFound'
 import { UsersErrorState } from '@components/Users/UsersErrorState'
 import { useDocumentTitle } from '@hooks/useDocumentTitle'
 import { useUserEdits } from '@hooks/useUserEdits'
+import { EMPTY_USERS } from '@hooks/useUserListState'
 import { useUsers } from '@hooks/useUsers'
 import { mergeUserNameEdits } from '@utils/createUserList'
 import { parseUserId } from '@utils/parseUserId'
 import type { UserDetailContainerProps } from './types'
 
-const EMPTY_USERS: readonly never[] = []
+const DEFAULT_PAGE_TITLE = 'Person · M-One'
 
 const UserDetailContainer: FC<UserDetailContainerProps> = () => {
+  const { userId } = useParams()
   const fetchedUsers = useUsers()
   const { edits: localNameEdits, saveName } = useUserEdits()
-  const { userId } = useParams()
-  const parsedUserId = parseUserId({ value: userId })
 
+  const parsedUserId = parseUserId({ value: userId })
   const serverUsers = fetchedUsers.status === 'success' ? fetchedUsers.users : EMPTY_USERS
 
   const users = useMemo(
@@ -32,36 +33,21 @@ const UserDetailContainer: FC<UserDetailContainerProps> = () => {
     [users, parsedUserId],
   )
 
-  useDocumentTitle(user === undefined ? 'Person · M-One' : `${user.name} · M-One`)
+  const pageTitle = user !== undefined ? `${user.name} · M-One` : DEFAULT_PAGE_TITLE
+  useDocumentTitle(pageTitle)
 
-  if (fetchedUsers.status === 'loading') {
-    return (
-      <div>
-        <UserBackButton />
-        <UserDetailLoading />
-      </div>
-    )
-  }
-
-  if (fetchedUsers.status === 'error') {
-    return (
-      <div>
-        <UserBackButton />
+  return (
+    <div>
+      <UserBackButton />
+      {fetchedUsers.status === 'loading' && <UserDetailLoading />}
+      {fetchedUsers.status === 'error' && (
         <UsersErrorState
           message={fetchedUsers.message}
           onRetry={fetchedUsers.retry}
           isRetrying={fetchedUsers.isRetrying}
         />
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      <UserBackButton />
-      {user === undefined
-        ? <UserNotFound />
-        : <UserDetails key={user.id} user={user} onSave={saveName} />}
+      )}
+      {fetchedUsers.status === 'success' && (user ? <UserDetails key={user.id} user={user} onSave={saveName} /> : <UserNotFound />)}
     </div>
   )
 }

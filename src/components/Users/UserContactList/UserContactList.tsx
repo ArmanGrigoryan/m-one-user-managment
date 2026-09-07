@@ -1,6 +1,7 @@
-import type { FC, ReactNode } from 'react'
+import type { FC } from 'react'
 import { Building2, Globe, Mail, MapPin, Phone } from 'lucide-react'
 import { cn } from '@utils/cn'
+import { ContactRow } from './ContactRow'
 import type { UserContactListProps } from './types'
 
 export const UserContactList: FC<UserContactListProps> = ({ user, className }) => {
@@ -39,23 +40,5 @@ export const UserContactList: FC<UserContactListProps> = ({ user, className }) =
         />
       </div>
     </section>
-  )
-}
-
-const ContactRow: FC<{
-  readonly icon: ReactNode
-  readonly label: string
-  readonly value: ReactNode
-}> = ({ icon, label, value }) => {
-  return (
-    <div className="flex gap-3 py-3 first:pt-0 last:pb-0">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-foreground text-accent">
-        {icon}
-      </span>
-      <div className="min-w-0">
-        <p className="text-xs text-muted">{label}</p>
-        <div className="mt-0.5 break-words text-sm">{value}</div>
-      </div>
-    </div>
   )
 }
