@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { FC } from 'react'
 import { Avatar } from '@components/design-system/Avatar'
 import { RowActions } from '@components/Users/shared/RowActions'
@@ -5,7 +6,7 @@ import { getInitials } from '@utils/getInitials'
 import { cn } from '@utils/cn'
 import type { UserCardProps } from './types'
 
-export const UserCard: FC<UserCardProps> = ({ user, className }) => {
+export const UserCard: FC<UserCardProps> = memo(({ user, className }) => {
   return (
     <article className={cn('relative flex w-full min-w-0 max-w-full items-start gap-3 overflow-hidden rounded-xl p-4 pr-14', className)}>
       <Avatar name={user.name} initials={getInitials({ name: user.name })} />
@@ -21,4 +22,4 @@ export const UserCard: FC<UserCardProps> = ({ user, className }) => {
       </div>
     </article>
   )
-}
+})

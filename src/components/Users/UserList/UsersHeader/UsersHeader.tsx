@@ -1,11 +1,10 @@
 import type { FC } from 'react'
 import { FlaskConical } from 'lucide-react'
 import { Badge } from '@components/design-system/Badge'
-import { DEMO_USER_COUNT } from '@utils/createDemoUsers'
 import { cn } from '@utils/cn'
 import type { UsersHeaderProps } from './types'
 
-export const UsersHeader: FC<UsersHeaderProps> = ({ className }) => {
+export const UsersHeader: FC<UsersHeaderProps> = ({ demoUserCount, className }) => {
   return (
     <section className={cn('mb-6 flex min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:items-start sm:justify-between', className)}>
       <div className="min-w-0">
@@ -16,7 +15,7 @@ export const UsersHeader: FC<UsersHeaderProps> = ({ className }) => {
       </div>
       <Badge className="w-fit gap-1.5 py-1.5" variant="edited">
         <FlaskConical className="h-3.5 w-3.5" />
-        Scale demo · {DEMO_USER_COUNT} generated users
+        Scale demo · {demoUserCount} generated users
       </Badge>
     </section>
   )

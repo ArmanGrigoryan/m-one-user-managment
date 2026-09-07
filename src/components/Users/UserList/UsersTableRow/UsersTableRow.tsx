@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { FC } from 'react'
 import { Avatar } from '@components/design-system/Avatar'
 import { TableCell, TableRow } from '@components/design-system/Table'
@@ -5,7 +6,7 @@ import { RowActions } from '@components/Users/shared/RowActions'
 import { getInitials } from '@utils/getInitials'
 import type { UsersTableRowProps } from './types'
 
-export const UsersTableRow: FC<UsersTableRowProps> = ({ user, className }) => {
+export const UsersTableRow: FC<UsersTableRowProps> = memo(({ user, className }) => {
   return (
     <TableRow className={className}>
       <TableCell className="max-w-[260px]">
@@ -31,4 +32,4 @@ export const UsersTableRow: FC<UsersTableRowProps> = ({ user, className }) => {
       </TableCell>
     </TableRow>
   )
-}
+})

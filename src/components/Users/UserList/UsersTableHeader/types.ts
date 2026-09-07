@@ -6,5 +6,4 @@ export interface UsersTableHeaderProps {
   readonly sortDirection: SortDirection
   readonly sortField: SortField
   readonly onSort: UsersTableHeaderOnSort
-  readonly className?: string
 }

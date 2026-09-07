@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { FC } from 'react'
 import { MoreVertical, Pencil } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -8,15 +9,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@components/design-system/DropdownMenu'
+import { cn } from '@utils/cn'
 import type { RowActionsProps } from './types'
 
-export const RowActions: FC<RowActionsProps> = ({ userId, userName, className }) => {
+export const RowActions: FC<RowActionsProps> = memo(({ userId, userName, className }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className={`h-10 w-10 p-0${className ? ` ${className}` : ''}`}
+          className={cn('h-10 w-10 p-0', className)}
           aria-label={`Actions for ${userName}`}
         >
           <MoreVertical className="h-4 w-4" />
@@ -32,4 +34,4 @@ export const RowActions: FC<RowActionsProps> = ({ userId, userName, className })
       </DropdownMenuContent>
     </DropdownMenu>
   )
-}
+})

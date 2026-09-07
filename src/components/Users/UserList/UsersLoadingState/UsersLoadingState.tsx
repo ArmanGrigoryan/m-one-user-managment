@@ -20,7 +20,7 @@ export const UsersLoadingState: FC<UsersLoadingStateProps> = ({ className }) => 
         {Array.from({ length: SKELETON_ROW_COUNT }, (_, index) => (
           <div
             key={index}
-            className="grid grid-cols-[1.5fr_2fr] gap-6 px-4 py-4 md:grid-cols-[2fr_2fr_1fr_1.5fr]"
+            className="grid grid-cols-[1.5fr_2fr] gap-6 px-4 py-4 md:grid-cols-[2fr_2fr_1fr_1.5fr_40px]"
           >
             {USERS_TABLE_COLUMNS.map((col) => (
               <Skeleton
@@ -28,6 +28,7 @@ export const UsersLoadingState: FC<UsersLoadingStateProps> = ({ className }) => 
                 className={cn('h-5', !col.mobileVisible && 'hidden md:block')}
               />
             ))}
+            <Skeleton className="hidden h-5 w-8 md:block" />
           </div>
         ))}
       </div>

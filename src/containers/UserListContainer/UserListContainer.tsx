@@ -7,6 +7,7 @@ import { useDocumentTitle } from '@hooks/useDocumentTitle'
 import { useUserEdits } from '@hooks/useUserEdits'
 import { EMPTY_USERS, useUserListState } from '@hooks/useUserListState'
 import { useUsers } from '@hooks/useUsers'
+import { DEMO_USER_COUNT } from '@utils/createDemoUsers'
 import type { UserListContainerProps } from './types'
 
 const PAGE_TITLE = 'People · M-One'
@@ -20,7 +21,7 @@ const UserListContainer: FC<UserListContainerProps> = () => {
 
   return (
     <>
-      <UsersHeader />
+      <UsersHeader demoUserCount={DEMO_USER_COUNT} />
       {fetchedUsers.status === 'loading' && <UsersLoadingState />}
       {fetchedUsers.status === 'error' && <UsersErrorState message={fetchedUsers.message} onRetry={fetchedUsers.retry} isRetrying={fetchedUsers.isRetrying} />}
       {fetchedUsers.status === 'success' && <UsersList userList={userList} />}

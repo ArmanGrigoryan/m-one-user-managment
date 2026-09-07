@@ -16,10 +16,11 @@ export const UsersTableHeader: FC<UsersTableHeaderProps> = ({
           const isActive = sortField === field
           const nextDirection =
             isActive && sortDirection === 'asc' ? 'desc' : 'asc'
-          const SortIcon = sortDirection === 'asc' ? ArrowUp : ArrowDown
+          const SortIcon = isActive && sortDirection === 'asc' ? ArrowUp : ArrowDown
+          const ariaSortValue = isActive ? (sortDirection === 'asc' ? 'ascending' : 'descending') : undefined
 
           return (
-            <TableHead key={field}>
+            <TableHead key={field} aria-sort={ariaSortValue}>
               <button
                 type="button"
                 aria-label={`Sort by ${label.toLowerCase()}`}

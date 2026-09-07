@@ -5,7 +5,7 @@ import type { UserDetailLoadingProps } from './types'
 
 export const UserDetailLoading: FC<UserDetailLoadingProps> = ({ className }) => {
   return (
-    <div aria-busy="true" className={cn('rounded-2xl border border-border bg-card p-6', className)}>
+    <div role="status" aria-busy="true" aria-label="Loading user details" className={cn('rounded-2xl border border-border bg-card p-6', className)}>
       <div className="space-y-4">
         <Skeleton className="h-16 w-16 rounded-full" />
         <Skeleton className="h-10 w-1/2" />

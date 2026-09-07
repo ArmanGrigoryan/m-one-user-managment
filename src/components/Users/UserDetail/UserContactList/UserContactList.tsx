@@ -17,7 +17,7 @@ export const UserContactList: FC<UserContactListProps> = ({ user, className }) =
         <ContactRow
           icon={<Phone className="h-4 w-4" />}
           label="Phone"
-          value={<a href={`tel:${user.phone}`}>{user.phone}</a>}
+          value={<a href={`tel:${user.phone.replace(/\s*x\d+$/, '')}`}>{user.phone}</a>}
         />
         <ContactRow
           icon={<MapPin className="h-4 w-4" />}

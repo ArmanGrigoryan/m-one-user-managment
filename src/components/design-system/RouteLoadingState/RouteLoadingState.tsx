@@ -6,6 +6,7 @@ import type { RouteLoadingStateProps } from './types'
 export const RouteLoadingState: FC<RouteLoadingStateProps> = ({ className }) => {
   return (
     <div
+      role="status"
       aria-label="Loading page"
       className={cn('grid min-h-[360px] place-items-center text-muted', className)}
     >
