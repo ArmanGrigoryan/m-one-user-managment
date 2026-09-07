@@ -1,7 +1,10 @@
 import type { FC } from 'react'
 import { Skeleton } from '@components/Skeleton'
+import { USERS_TABLE_COLUMNS } from '@components/Users/UsersTable/constants'
 import { cn } from '@utils/cn'
 import type { UsersLoadingStateProps } from './types'
+
+const SKELETON_ROW_COUNT = 10
 
 export const UsersLoadingState: FC<UsersLoadingStateProps> = ({ className }) => {
   return (
@@ -14,15 +17,17 @@ export const UsersLoadingState: FC<UsersLoadingStateProps> = ({ className }) => 
         <Skeleton className="h-10 w-full max-w-md" />
       </div>
       <div className="divide-y divide-border">
-        {Array.from({ length: 10 }, (_, index) => (
+        {Array.from({ length: SKELETON_ROW_COUNT }, (_, index) => (
           <div
             key={index}
             className="grid grid-cols-[1.5fr_2fr] gap-6 px-4 py-4 md:grid-cols-[2fr_2fr_1fr_1.5fr]"
           >
-            <Skeleton className="h-8" />
-            <Skeleton className="h-5" />
-            <Skeleton className="hidden h-5 md:block" />
-            <Skeleton className="hidden h-5 md:block" />
+            {USERS_TABLE_COLUMNS.map((col) => (
+              <Skeleton
+                key={col.field}
+                className={cn('h-5', !col.mobileVisible && 'hidden md:block')}
+              />
+            ))}
           </div>
         ))}
       </div>

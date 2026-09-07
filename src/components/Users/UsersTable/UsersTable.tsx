@@ -4,7 +4,6 @@ import { UsersEmptyState } from '@components/Users/UsersEmptyState'
 import { UserCard } from '@components/Users/UserCard'
 import { UsersTableRow } from '@components/Users/UsersTableRow'
 import { UsersTableHeader } from '@components/Users/UsersTableHeader'
-import { cn } from '@utils/cn'
 import type { UsersTableProps } from './types'
 
 export const UsersTable: FC<UsersTableProps> = ({
@@ -38,7 +37,7 @@ export const UsersTable: FC<UsersTableProps> = ({
           </TableBody>
         </Table>
       </div>
-      <div className={cn('divide-y divide-border md:hidden')}>
+      <div className="divide-y divide-border md:hidden">
         {users.map((user) => (
           <UserCard
             key={user.id}

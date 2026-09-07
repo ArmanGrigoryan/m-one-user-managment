@@ -1,15 +1,8 @@
 import type { FC } from 'react'
 import { ArrowDown, ArrowUp } from 'lucide-react'
-import type { SortField } from '@api/usersService'
 import { TableHead, TableHeader, TableRow } from '@components/Table'
+import { USERS_TABLE_COLUMNS } from '@components/Users/UsersTable/constants'
 import type { UsersTableHeaderProps } from './types'
-
-const COLUMNS: readonly { readonly field: SortField; readonly label: string }[] = [
-  { field: 'name', label: 'Name' },
-  { field: 'email', label: 'Email' },
-  { field: 'city', label: 'City' },
-  { field: 'company', label: 'Company' },
-]
 
 export const UsersTableHeader: FC<UsersTableHeaderProps> = ({
   sortDirection,
@@ -19,7 +12,7 @@ export const UsersTableHeader: FC<UsersTableHeaderProps> = ({
   return (
     <TableHeader>
       <TableRow>
-        {COLUMNS.map(({ field, label }) => {
+        {USERS_TABLE_COLUMNS.map(({ field, label }) => {
           const isActive = sortField === field
           const nextDirection =
             isActive && sortDirection === 'asc' ? 'desc' : 'asc'

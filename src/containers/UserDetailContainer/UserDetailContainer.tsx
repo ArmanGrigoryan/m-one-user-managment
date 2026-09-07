@@ -30,7 +30,7 @@ const UserDetailContainer: FC<UserDetailContainerProps> = () => {
   }
 
   if (fetchedUsers.status === 'error') {
-    return <div><UserBackButton /><UsersErrorState message={fetchedUsers.message} onRetry={fetchedUsers.retry} /></div>
+    return <div><UserBackButton /><UsersErrorState message={fetchedUsers.message} onRetry={fetchedUsers.retry} isRetrying={fetchedUsers.isRetrying} /></div>
   }
 
   return (

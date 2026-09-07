@@ -16,14 +16,14 @@ const UserListContainer: FC<UserListContainerProps> = () => {
   const fetchedUsers = useUsers()
   const { edits: localNameEdits } = useUserEdits()
   const serverUsers = fetchedUsers.status === 'success' ? fetchedUsers.users : EMPTY_USERS
-  const directory = useUserListState({ edits: localNameEdits, users: serverUsers })
+  const userList = useUserListState({ edits: localNameEdits, users: serverUsers })
 
   return (
     <>
       <UsersHeader />
       {fetchedUsers.status === 'loading' && <UsersLoadingState />}
-      {fetchedUsers.status === 'error' && <UsersErrorState message={fetchedUsers.message} onRetry={fetchedUsers.retry} />}
-      {fetchedUsers.status === 'success' && <UsersList directory={directory} />}
+      {fetchedUsers.status === 'error' && <UsersErrorState message={fetchedUsers.message} onRetry={fetchedUsers.retry} isRetrying={fetchedUsers.isRetrying} />}
+      {fetchedUsers.status === 'success' && <UsersList userList={userList} />}
     </>
   )
 }

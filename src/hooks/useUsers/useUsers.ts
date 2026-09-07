@@ -22,7 +22,7 @@ export const useUsers: UseUsers = () => {
   }
 
   if (query.isError) {
-    return { status: 'error', message: getErrorMessage(query.error), retry: query.refetch }
+    return { status: 'error', message: getErrorMessage(query.error), isRetrying: query.isFetching, retry: query.refetch }
   }
 
   return { status: 'success', users: query.data, retry: query.refetch }

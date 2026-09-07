@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import { useCallback, type FC } from 'react'
 import { UsersFilters } from '@components/Users/UsersFilters'
 import { UsersPagination } from '@components/Users/UsersPagination'
 import { UsersTable } from '@components/Users/UsersTable'
@@ -7,54 +7,49 @@ import { cn } from '@utils/cn'
 import type { UsersDirectoryPanelProps } from './types'
 
 export const UsersDirectoryPanel: FC<UsersDirectoryPanelProps> = ({
-  directory,
+  userList,
   className,
 }) => {
+  const { query, cities, pageUsers, filteredUsers, currentPage, pageCount, setQueryValues } = userList
+
+  const hasActiveFilters = query.search.length > 0 || query.cities.length > 0
+
+  const handleReset = (values: Record<string, string>, replace = false) =>
+    setQueryValues({ values: { ...values, page: '1' }, replace })
+
+  const handleSearchChange = (search: string) => handleReset({ q: search }, true)
+
+  const handleCitiesChange = (selected: readonly string[]) => handleReset({ city: selected.join(',') })
+
+  const handleSort = (field: string, direction: string) => handleReset({ sortBy: field, sort: direction })
+
+  const handlePageChange = useCallback(
+    (page: number) => setQueryValues({ values: { page: String(page) }, replace: false }),
+    [setQueryValues],
+  )
+
   return (
     <div className={cn('w-full max-w-full overflow-hidden rounded-2xl border border-border bg-card shadow-sm', className)}>
       <UsersFilters
-        search={directory.query.search}
-        selectedCities={directory.query.cities}
-        cities={directory.cities}
-        onSearchChange={(search) => {
-          directory.setQueryValues({
-            values: { q: search, page: '1' },
-            replace: true,
-          })
-        }}
-        onCitiesChange={(cities) => {
-          directory.setQueryValues({
-            values: { city: cities.join(','), page: '1' },
-            replace: false,
-          })
-        }}
+        search={query.search}
+        selectedCities={query.cities}
+        cities={cities}
+        onSearchChange={handleSearchChange}
+        onCitiesChange={handleCitiesChange}
       />
       <UsersTable
-        users={directory.pageUsers}
-        hasActiveFilters={
-          directory.query.search.length > 0 ||
-          directory.query.cities.length > 0
-        }
-        sortDirection={directory.query.sortDirection}
-        sortField={directory.query.sortBy}
-        onSort={(field, direction) => {
-          directory.setQueryValues({
-            values: { sortBy: field, sort: direction, page: '1' },
-            replace: false,
-          })
-        }}
+        users={pageUsers}
+        hasActiveFilters={hasActiveFilters}
+        sortDirection={query.sortDirection}
+        sortField={query.sortBy}
+        onSort={handleSort}
       />
       <UsersPagination
-        page={directory.currentPage}
-        pageCount={directory.pageCount}
-        totalCount={directory.filteredUsers.length}
+        page={currentPage}
+        pageCount={pageCount}
+        totalCount={filteredUsers.length}
         pageSize={USERS_PER_PAGE}
-        onPageChange={(page) => {
-          directory.setQueryValues({
-            values: { page: String(page) },
-            replace: false,
-          })
-        }}
+        onPageChange={handlePageChange}
       />
     </div>
   )

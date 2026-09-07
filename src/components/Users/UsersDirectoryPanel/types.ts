@@ -1,6 +1,6 @@
 import type { UseUserListStateResult } from '@hooks/useUserListState'
 
 export interface UsersDirectoryPanelProps {
-  readonly directory: UseUserListStateResult
+  readonly userList: UseUserListStateResult
   readonly className?: string
 }
