@@ -9,7 +9,7 @@ export const createDemoUsers: CreateDemoUsers = ({ users, count }) => {
     const sourceUser = users[index % users.length]
     const generation = Math.floor(index / users.length)
 
-    if (sourceUser === undefined || generation === 0) {
+    if (generation === 0) {
       return sourceUser
     }
 
@@ -17,7 +17,7 @@ export const createDemoUsers: CreateDemoUsers = ({ users, count }) => {
 
     return {
       ...sourceUser,
-      id: generation * 1000 + sourceUser.id,
+      id: generation * 10_000 + sourceUser.id,
       name: `${sourceUser.name} ${displayGeneration}`,
       username: `${sourceUser.username}${displayGeneration}`,
       email: addEmailTag({
@@ -25,7 +25,7 @@ export const createDemoUsers: CreateDemoUsers = ({ users, count }) => {
         tag: `demo${displayGeneration}`,
       }),
     }
-  }).filter((user) => user !== undefined)
+  })
 }
 
 const addEmailTag = ({

@@ -4,7 +4,6 @@ export interface CreateUserListArgs {
   readonly users: readonly User[]
   readonly search: string
   readonly cities: readonly string[]
-  readonly edits: UserNameEdits
   readonly sortDirection: SortDirection
   readonly sortBy: SortField
 }

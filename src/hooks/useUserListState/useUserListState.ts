@@ -19,7 +19,6 @@ export const useUserListState: UseUserListState = ({ edits, users }) => {
         users: mergedUsers,
         search: query.search,
         cities: query.cities,
-        edits,
         sortDirection: query.sortDirection,
         sortBy: query.sortBy,
       }),
@@ -29,7 +28,6 @@ export const useUserListState: UseUserListState = ({ edits, users }) => {
       query.cities,
       query.sortDirection,
       query.sortBy,
-      edits,
     ],
   )
   const pageCount = Math.max(1, Math.ceil(filteredUsers.length / USERS_PER_PAGE))
