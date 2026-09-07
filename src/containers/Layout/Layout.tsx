@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { Suspense } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { Users2 } from 'lucide-react'
-import { RouteLoadingState } from '@components/RouteLoadingState'
+import { RouteLoadingState } from '@components/design-system/RouteLoadingState'
 import { cn } from '@utils/cn'
 import type { LayoutProps } from './types'
 
