@@ -1,0 +1,74 @@
+import type { FC } from 'react'
+import { Save } from 'lucide-react'
+import { useCallback } from 'react'
+import { Toast } from '@components/Toast'
+import { Button } from '@components/Button'
+import { Input } from '@components/Input'
+import { useUserNameForm } from '@hooks/useUserNameForm'
+import { cn } from '@utils/cn'
+import type { UserNameFormProps } from './types'
+
+export const UserNameForm: FC<UserNameFormProps> = ({
+  userId,
+  currentName,
+  onSave,
+  className,
+}) => {
+  const form = useUserNameForm({
+    userId,
+    currentName,
+    onSave,
+  })
+  const hasVisibleError =
+    form.name.length > 0 && form.nameError !== null
+
+  const dismissToast = useCallback(() => {
+    form.changeName(form.name)
+  }, [form])
+
+  return (
+    <form
+      onSubmit={form.submit}
+      className={cn('rounded-2xl border border-border bg-card p-5 sm:p-6', className)}
+    >
+      <h2 className="text-xl font-semibold">Edit name</h2>
+      <p className="mt-1 text-sm text-muted">
+        Saved only in this browser. Your edit wins over fresh API data.
+      </p>
+      <label className="mt-4 block" htmlFor="user-name">
+        <span className="mb-1.5 block text-sm font-medium">Name</span>
+        <Input
+          id="user-name"
+          value={form.name}
+          invalid={hasVisibleError}
+          autoComplete="name"
+          aria-label="Name"
+          onChange={(event) => {
+            form.changeName(event.target.value)
+          }}
+        />
+        {hasVisibleError && (
+          <span className="mt-1 block text-xs text-muted">
+            {form.nameError}
+          </span>
+        )}
+      </label>
+      <div className="mt-4">
+        <Button
+          type="submit"
+          disabled={
+            form.nameError !== null || form.trimmedName === currentName
+          }
+        >
+          <Save className="h-4 w-4" />
+          Save name
+        </Button>
+      </div>
+      <Toast
+        message={form.wasSaved ? 'Name saved locally.' : null}
+        tone="success"
+        onClose={dismissToast}
+      />
+    </form>
+  )
+}
