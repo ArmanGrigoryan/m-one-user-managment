@@ -1,7 +1,5 @@
 import type { FC } from 'react'
 import { Save } from 'lucide-react'
-import { useCallback } from 'react'
-import { Toast } from '@components/Toast'
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 import { useUserNameForm } from '@hooks/useUserNameForm'
@@ -19,10 +17,6 @@ export const UserNameForm: FC<UserNameFormProps> = ({
     currentName,
     onSave,
   })
-
-  const dismissToast = useCallback(() => {
-    form.changeName(form.name)
-  }, [form])
 
   return (
     <form
@@ -54,11 +48,6 @@ export const UserNameForm: FC<UserNameFormProps> = ({
           Save name
         </Button>
       </div>
-      <Toast
-        message={form.wasSaved ? 'Name saved locally.' : null}
-        tone="success"
-        onClose={dismissToast}
-      />
     </form>
   )
 }

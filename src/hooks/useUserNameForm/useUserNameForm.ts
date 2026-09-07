@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { toast } from 'sonner'
 import type { UseUserNameForm } from './types'
 
 export const useUserNameForm: UseUserNameForm = ({
@@ -8,23 +9,22 @@ export const useUserNameForm: UseUserNameForm = ({
   onSave,
 }) => {
   const [name, setName] = useState(currentName)
-  const [wasSaved, setWasSaved] = useState(false)
   const trimmedName = name.trim()
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setWasSaved(onSave({ userId, name: trimmedName }))
+    if (onSave({ userId, name: trimmedName })) {
+      toast.success('Name saved locally.')
+    }
   }
 
   const changeName = (nextName: string) => {
     setName(nextName)
-    setWasSaved(false)
   }
 
   return {
     name,
     trimmedName,
-    wasSaved,
     submit,
     changeName,
   }

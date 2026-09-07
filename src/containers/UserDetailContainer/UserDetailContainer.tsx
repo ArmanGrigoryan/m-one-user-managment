@@ -1,6 +1,5 @@
 import type { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { StorageErrorToast } from '@components/StorageErrorToast'
 import { UserBackButton } from '@components/Users/UserBackButton'
 import { UserDetailLoading } from '@components/Users/UserDetailLoading'
 import { UserDetails } from '@components/Users/UserDetails'
@@ -15,7 +14,7 @@ import type { UserDetailContainerProps } from './types'
 
 const UserDetailContainer: FC<UserDetailContainerProps> = () => {
   const fetchedUsers = useUsers()
-  const { edits: localNameEdits, saveName, storageError, clearStorageError } = useUserEdits()
+  const { edits: localNameEdits, saveName } = useUserEdits()
   const { userId } = useParams()
   const parsedUserId = parseUserId({ value: userId })
   const users =
@@ -38,7 +37,6 @@ const UserDetailContainer: FC<UserDetailContainerProps> = () => {
     <div>
       <UserBackButton />
       {user === undefined ? <UserNotFound /> : <UserDetails key={user.id} user={user} onSave={saveName} />}
-      <StorageErrorToast message={storageError} onClose={clearStorageError} />
     </div>
   )
 }
